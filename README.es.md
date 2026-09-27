@@ -23,7 +23,7 @@ Lo que nos importó al construirla:
 /plugin marketplace add vencx/decimo-hombre
 /plugin install decimo-hombre@decimo-hombre
 ```
-Requisitos: Claude Code con `/advisor`, `tmux`, `git`, `python3`; para la nube, además `gh` con sesión iniciada, Claude Code web y la GitHub App de Claude instalada en todos tus repos, para que la nube pueda subir la revisión.
+Requisitos: Claude Code con `/advisor`, `tmux`, `git`, `python3`; para la nube, además `gh` con sesión iniciada, Claude Code web e idealmente la GitHub App de Claude en tus repos para que la nube suba la revisión (si no puede, la revisión igual queda para leer en la sesión).
 
 ## Usar
 Pídele a Claude: *«décimo hombre a este plan: docs/plans/checkout-v2.md, en la nube»*. Escribe el brief desde una plantilla (requisitos · técnico · diseño de agente), prepara la copia limpia, lanza al auditor, espera el commit y trae `revision.md` junto a tu plan.

@@ -28,7 +28,7 @@ Mismas garantías en los dos: copia limpia, escaneo de PII = 0, `/advisor <model
 Si existe `~/.claude/docs/decimo-hombre-anexo.md`, léelo antes del paso 1: trae las reglas y rutas propias de quien usa la skill (a dónde se copia la revisión, a quién se avisa, regex extra de PII). El anexo manda sobre los valores por defecto de aquí.
 
 ## Requisito de una vez (modo nube)
-Que la nube pueda hacer push a repos nuevos: instala la GitHub App de Claude con acceso a **todos** tus repos (github.com/settings/installations → Claude → All repositories). `/web-setup` solo NO basta (medido 26-sep: sin la app en el repo, `--cloud` sube una copia empaquetada y el proxy rechaza el push con 403). Sin esto, la revisión se hace pero se queda en la sesión.
+Para que la nube suba la rama sola, el repo tiene que llegar CLONADO (GitHub App de Claude instalada en él). Si llega como copia empaquetada, el push da 403 y la revisión se lee en la sesión (ver «Si algo falla»). El paso 5 lo detecta: sin rama a los 30 min, lee la sesión. Sin esto, la revisión se hace pero se queda en la sesión.
 
 ## Procedimiento
 1. **Elige qué va en la copia.** Solo el documento a revisar (y, si hace falta, 1–2 anexos que el documento cite como autoridad). Nada de volcados, logs ni conversaciones: el auditor no los necesita y ahí vive la PII.
@@ -46,7 +46,7 @@ Que la nube pueda hacer push a repos nuevos: instala la GitHub App de Claude con
 ## Si algo falla
 - Nube sin sesión o con error: repite el paso 4 una vez; si vuelve a fallar, ofrece el modo `local` con la misma carpeta (ya es un repo git).
 - La sesión en la nube no arranca tras el paso 4: vuelve a mandar el prompt con `claude -p "<prompt>" --cloud <session_id>` desde la carpeta. No uses mensajes entre sesiones (SendMessage): llegan como texto y no la ponen a trabajar.
-- El push de la nube falla con 403 («repo no autorizado»): como la GitHub App de Claude no está instalada en el repo nuevo, `--cloud` sube una copia empaquetada, y esa copia solo puede hacer push si tu conexión con GitHub tiene acceso al repo. Arreglo de una vez: instala la GitHub App de Claude en «All repositories» (`/web-setup` solo no basta) y lanza una sesión NUEVA: la que ya falló no gana permisos. Después, `claude -p "haz push de la rama" --cloud <id>`. Mientras tanto, la revisión se lee en la sesión.
+- El push de la nube falla con 403 («not in this session's authorized repository set»): la sesión recibió el repo como copia empaquetada y el proxy solo empuja a repos que son fuente de la sesión. La revisión SÍ está hecha: léela en la URL de la sesión o tráela con `claude --teleport <session_id>` desde la carpeta de la copia, y guárdala tú junto al plan. Medido 26-sep: `/web-setup` y la GitHub App en «All repositories» no lo evitaron en esa cuenta; el auditor no debe esquivar el 403 con otros tokens.
 - 90 min sin entrega: abre la URL o `tmux attach -t dh-…` y mira qué pasó; di al usuario lo que ves, no lo que supones.
 
 ## Qué no hace

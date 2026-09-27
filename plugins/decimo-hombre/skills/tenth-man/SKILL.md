@@ -27,6 +27,9 @@ Same guarantees in both: clean copy, PII scan = 0, `/advisor <model>` set before
 ## Local annex
 If `~/.claude/docs/tenth-man-annex.md` exists, read it before step 1: it holds the user's own rules and paths (where the review goes, who gets notified, extra PII regexes). The annex overrides the defaults here.
 
+## One-time requirement (cloud mode)
+Let the cloud push to new repos: run `/web-setup` once, or install the Claude GitHub App with access to all your repos. Without it the review still happens but stays inside the session.
+
 ## Procedure
 1. **Pick what goes in the copy.** Only the document under review (plus 1–2 annexes the document cites as authority). No dumps, logs or conversations: the auditor does not need them and that is where personal data lives.
 2. **Write `REVIEW-BRIEF.md`** from the matching template in `references/brief-templates.md` (requirements · technical · agent design · other). The brief states what is already decided and not up for debate, what to review as a numbered focus list, and the output format. Write it for a cold reader: no "as you know", real section names from the document.
@@ -43,7 +46,7 @@ If `~/.claude/docs/tenth-man-annex.md` exists, read it before step 1: it holds t
 ## When something fails
 - Cloud: no session or an error: repeat step 4 once; if it fails again, offer `local` mode on the same folder (it is already a git repo).
 - The cloud session does not start after step 4: resend the prompt with `claude -p "<prompt>" --cloud <session_id>` from the folder. Do not use cross-session messages (SendMessage): they arrive as text and do not start the work.
-- The cloud push fails: the uploaded copy reaches the cloud without a git remote. `launch.sh` already puts the URL in the prompt; if it still fails, tell the session "git remote add origin <url> and push".
+- The cloud push fails with a 403 ("repo not authorized"): with no Claude GitHub App on the new repo, `--cloud` uploads a bundle, and a bundle can push back only if your GitHub connection has access to that repo. One-time fix: `/web-setup` (shares your `gh` token) or install the Claude GitHub App on "All repositories". Then `claude -p "push the branch" --cloud <id>`. Meanwhile the review can be read in the session.
 - 90 min without delivery: open the URL or `tmux attach -t dh-…` and look; tell the user what you see, not what you assume.
 
 ## What it does not do

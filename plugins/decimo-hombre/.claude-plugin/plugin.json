@@ -1,0 +1,8 @@
+{
+  "name": "decimo-hombre",
+  "version": "0.1.0",
+  "description": "Adversarial review of plans and specs by an isolated auditor session (cloud or local) with /advisor, on a PII-scanned clean copy. Skills: tenth-man (EN) · decimo-hombre (ES).",
+  "author": { "name": "Omar Bohórquez" },
+  "license": "MIT",
+  "keywords": ["review", "adversarial", "plan", "red-team", "advisor", "cloud"]
+}

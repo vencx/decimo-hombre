@@ -1,0 +1,14 @@
+{
+  "name": "decimo-hombre",
+  "owner": {
+    "name": "Omar Bohórquez"
+  },
+  "plugins": [
+    {
+      "name": "decimo-hombre",
+      "source": "./plugins/decimo-hombre",
+      "description": "Adversarial review of plans and specs by an isolated auditor session (cloud or local) with /advisor, on a PII-scanned clean copy. Skills: tenth-man (EN) · decimo-hombre (ES)."
+    }
+  ],
+  "description": "Tenth man / Décimo hombre: isolated adversarial review of plans and specs (EN + ES)."
+}

@@ -23,7 +23,7 @@ A few things we cared about while building it:
 /plugin marketplace add vencx/decimo-hombre
 /plugin install decimo-hombre@decimo-hombre
 ```
-Requirements: Claude Code with `/advisor`, `tmux`, `git`, `python3`; for cloud mode also `gh` (logged in), Claude Code on the web, and a one-time `/web-setup` (or the Claude GitHub App on all your repos) so the cloud can push the review back.
+Requirements: Claude Code with `/advisor`, `tmux`, `git`, `python3`; for cloud mode also `gh` (logged in), Claude Code on the web, and the Claude GitHub App installed on all your repos, so the cloud can push the review back.
 
 ## Use
 Ask Claude: *"tenth-man this plan: docs/plans/checkout-v2.md, cloud mode"*. It writes the brief from a template (requirements · technical · agent design), prepares the clean copy, launches the auditor, waits for the commit and brings `review.md` back next to your plan.

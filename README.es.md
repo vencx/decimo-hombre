@@ -8,12 +8,15 @@ Plugin de Claude Code para **revisión adversaria de planes, specs y diseños** 
 
 Dos skills, el mismo motor: **`decimo-hombre`** (español) y **`tenth-man`** (inglés).
 
-## Por qué otra skill de revisión
-Casi todas las de «abogado del diablo» critican dentro de la misma sesión, y el crítico hereda los puntos ciegos de quien escribió el plan. Esta:
-- **Aísla al auditor**: sesión aparte, sin contexto compartido.
-- **Escanea datos personales y secretos** antes de que algo salga de tu máquina (teléfonos, correos, IDs de WhatsApp, cadenas tipo clave y tus propias regex); no sigue si el escaneo no da 0.
-- **Entrega un artefacto auditable**: `revision.md` en su propia rama, cerrado con un commit `LISTO:`/`BLOQUEADO:`. El silencio nunca cuenta como hecho.
-- **Esquiva problemas reales que medimos**: el slash command va solo, un mensaje entre sesiones no arranca una sesión en la nube (`claude -p "<prompt>" --cloud <id>` sí), una carpeta nueva pide aceptar el diálogo de confianza, y las copias dentro de `~/.claude` no se suben.
+## Por qué esta
+Escribiste el plan, lo releíste y te gusta. Justo ahí está el problema: quien revisa después de haber vivido la misma conversación tiende a ver lo que tú ves, y a pasar por alto lo mismo que tú.
+
+El décimo hombre le entrega tu documento a una sesión de Claude nueva, que no te conoce. Recibe el documento y un brief corto, nada más, y su único trabajo es encontrar dónde te equivocas.
+
+Lo que nos importó al construirla:
+- **Nada personal se escapa por descuido.** Antes de que la copia salga, se revisa en busca de teléfonos, correos, IDs de chat y cualquier cosa con pinta de clave. Si aparece algo, se detiene y te dice dónde.
+- **«Hecho» significa que hay algo que leer.** La revisión llega como un archivo en su propia rama, con un commit que dice LISTO o BLOQUEADO. Una sesión callada no es una sesión que terminó.
+- **Los tropiezos ya están resueltos.** Lograr que una sesión aislada de verdad arranque a trabajar, en la nube o en local, tiene trampas poco obvias. Nos caímos en ellas para que tú no tengas que hacerlo.
 
 ## Instalar
 ```

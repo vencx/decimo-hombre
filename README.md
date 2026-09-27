@@ -8,12 +8,15 @@ A Claude Code plugin for **adversarial review of plans, specs and designs** by a
 
 Two skills, same engine: **`tenth-man`** (English) and **`decimo-hombre`** (Spanish).
 
-## Why another review skill
-Most "devil's advocate" skills critique inside the same session, so the critic inherits the blind spots that wrote the plan. This one:
-- **Isolates the auditor** — separate session, no shared context.
-- **Scans for PII and secrets** before anything leaves your machine (phones, emails, WhatsApp IDs, key-like strings, plus your own regexes); it refuses to continue unless the scan is 0.
-- **Delivers an auditable artifact** — `review.md` on its own branch, closed by a `DONE:`/`BLOCKED:` commit. Silence never counts as done.
-- **Works around real gotchas** we measured: the slash command must go alone, a cross-session message does not start a cloud session (`claude -p "<prompt>" --cloud <id>` does), new folders need the trust dialog accepted, copies inside `~/.claude` are refused for upload.
+## Why this one
+You wrote the plan, you reread the plan, and you like the plan. That is exactly the problem: a reviewer who has been through the same conversation you have tends to see what you see, and miss what you miss.
+
+Tenth man hands your document to a fresh Claude session that has never met you. It gets the document and a short brief, nothing else, and its only job is to find where you are wrong.
+
+A few things we cared about while building it:
+- **Nothing personal leaves by accident.** Before the copy goes anywhere it is checked for phone numbers, emails, chat IDs and anything that looks like a key. If something shows up, it stops and tells you where.
+- **"Done" means there is something to read.** The review lands as a file on its own branch, with a commit that says DONE or BLOCKED. A quiet session is not a finished one.
+- **The snags are already handled.** Getting an isolated session to actually start working, in the cloud or locally, has a few non-obvious traps. We hit them so you do not have to.
 
 ## Install
 ```

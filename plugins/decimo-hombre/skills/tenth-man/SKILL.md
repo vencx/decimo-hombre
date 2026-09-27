@@ -11,7 +11,7 @@ The tenth-man rule: when nine people agree, the tenth is obliged to look for why
 Worth it when being wrong is costly to undo (production, money, customer data, migrations, agents that talk to customers on their own) and the document is already written. One per document: requirements and technical plan are two separate reviews.
 | Workflow | Moment |
 |---|---|
-| Compound Engineering | After `/ce-brainstorm` if requirements are large or contentious; **always after `/ce-plan`**, after any quick in-session review, and before `/ce-work`. Repeat if the plan is heavily rewritten. |
+| Compound Engineering | After `/ce-brainstorm` if requirements are large or contentious; **always after `/ce-plan`**, after whatever quick review you already do (a second model, a teammate, `/ce-doc-review`), and before `/ce-work`. Repeat if the plan is heavily rewritten. |
 | Superpowers | After `writing-plans` and before `executing-plans` / `subagent-driven-development`; optionally on the design coming out of `brainstorming`. |
 | No framework | On the PRD/spec, RFC/ADR, migration plan, an agent's system prompt or a runbook, before work starts. |
 Do not use it for: small or reversible changes, bugs (diagnose first), code already written (`code-review`), or as a replacement for a quick review: the isolated auditor finds what shared context hides, not the obvious.
@@ -43,7 +43,7 @@ If `~/.claude/docs/tenth-man-annex.md` exists, read it before step 1: it holds t
 ## When something fails
 - Cloud: no session or an error: repeat step 4 once; if it fails again, offer `local` mode on the same folder (it is already a git repo).
 - The cloud session does not start after step 4: resend the prompt with `claude -p "<prompt>" --cloud <session_id>` from the folder. Do not use cross-session messages (SendMessage): they arrive as text and do not start the work.
-- The cloud push fails with an access error: it usually retries on its own; check the branch before acting.
+- The cloud push fails: the uploaded copy reaches the cloud without a git remote. `launch.sh` already puts the URL in the prompt; if it still fails, tell the session "git remote add origin <url> and push".
 - 90 min without delivery: open the URL or `tmux attach -t dh-…` and look; tell the user what you see, not what you assume.
 
 ## What it does not do

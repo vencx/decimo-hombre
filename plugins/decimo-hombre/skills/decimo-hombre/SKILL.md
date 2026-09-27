@@ -11,10 +11,10 @@ Regla del décimo hombre: cuando nueve están de acuerdo, el décimo tiene la ob
 Vale la pena cuando equivocarse sale caro de revertir (producción, dinero, datos de clientes, migraciones, agentes que hablan solos con clientes) y el documento ya está escrito. Una por documento: requisitos y plan técnico son dos revisiones distintas.
 | Flujo | Momento |
 |---|---|
-| Compound Engineering | Tras `/ce-brainstorm` si los requisitos son grandes o polémicos; **siempre tras `/ce-plan`**, después del gate barato en la misma sesión (multicerebro) y antes de `/ce-work`. Repetir si el plan se reescribe a fondo. |
+| Compound Engineering | Tras `/ce-brainstorm` si los requisitos son grandes o polémicos; **siempre tras `/ce-plan`**, después de la revisión rápida que ya hagas (otro modelo, un compañero, `/ce-doc-review`) y antes de `/ce-work`. Repetir si el plan se reescribe a fondo. |
 | Superpowers | Tras `writing-plans` y antes de `executing-plans` / `subagent-driven-development`; opcional sobre el diseño que sale de `brainstorming`. |
 | Sin framework | Sobre el PRD/spec, el RFC/ADR, el plan de migración, el system prompt de un agente o el runbook, antes del arranque del trabajo. |
-No la uses para: cambios pequeños o reversibles, bugs (diagnostica primero), código ya escrito (`code-review`), ni como sustituto del gate rápido: el aislado encuentra lo que el contexto compartido no ve, no lo obvio.
+No la uses para: cambios pequeños o reversibles, bugs (diagnostica primero), código ya escrito (`code-review`), ni como sustituto de una revisión rápida: el aislado encuentra lo que el contexto compartido no ve, no lo obvio.
 
 ## Modos
 | Modo | Dónde corre | Cuándo |
@@ -43,7 +43,7 @@ Si existe `~/.claude/docs/decimo-hombre-anexo.md`, léelo antes del paso 1: trae
 ## Si algo falla
 - Nube sin sesión o con error: repite el paso 4 una vez; si vuelve a fallar, ofrece el modo `local` con la misma carpeta (ya es un repo git).
 - La sesión en la nube no arranca tras el paso 4: vuelve a mandar el prompt con `claude -p "<prompt>" --cloud <session_id>` desde la carpeta. No uses mensajes entre sesiones (SendMessage): llegan como texto y no la ponen a trabajar.
-- El push de la nube falla por acceso: suele reintentar sola; comprueba la rama antes de actuar.
+- El push de la nube falla: la copia llega a la nube sin remoto de git. `launch.sh` ya le pasa la URL en el prompt; si aun así falla, dile a la sesión «git remote add origin <url> y push».
 - 90 min sin entrega: abre la URL o `tmux attach -t dh-…` y mira qué pasó; di al usuario lo que ves, no lo que supones.
 
 ## Qué no hace

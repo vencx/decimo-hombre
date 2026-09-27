@@ -34,6 +34,10 @@ if [ "$modo" = cloud ] || [ "$modo" = nube ]; then
     sleep 2
   done
   [ -z "$id" ] && { echo "ERROR: the cloud session did not appear"; pane; exit 1; }
+  # Measured 2026-09-26: the uploaded working tree arrives WITHOUT a git remote, so the push fails.
+  # Tell the auditor where to push.
+  remoto=$(git -C "$dir" remote get-url origin 2>/dev/null || true)
+  [ -n "$remoto" ] && prompt="$prompt If the repo has no git remote, add it first: git remote add origin $remoto"
   echo "SESSION $id"
   echo "VIEW https://claude.ai/code/$id"
   (cd "$dir" && claude -p "$prompt" --cloud "$id" 2>&1 & p=$!; sleep 60; kill $p 2>/dev/null || true) | grep -E 'Sent|Error|error' || true

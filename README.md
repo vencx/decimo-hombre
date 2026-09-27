@@ -71,7 +71,7 @@ Not for small reversible changes, bug hunts, or code already written (use a code
 ## How it works
 1. Copies only the document (plus a brief written from a template: requirements · technical · agent design) into a clean folder with its own git repo.
 2. Scans it for phone numbers, emails, chat IDs and key-like strings, plus your own regexes. Anything found stops the run.
-3. Starts a separate Claude session, sets `/advisor` first (Fable by default), then sends the prompt.
+3. Starts a separate Claude session with the recommended auditor pinned in the copy's settings: **Opus 5.5 at max effort, advised by Fable**. Then sends the prompt.
 4. Waits for the artifact (the commit), never for silence.
 5. Brings `review.md` back next to your plan.
 

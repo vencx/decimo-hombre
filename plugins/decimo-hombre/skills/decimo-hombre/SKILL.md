@@ -22,6 +22,8 @@ No la uses para: cambios pequeños o reversibles, bugs (diagnostica primero), c�
 | `nube` (por defecto) | Sesión de Claude Code en la nube, repo privado de GitHub | Revisiones largas; no ocupa tu máquina ni tu sesión |
 | `local` | Sesión de `claude` aparte en tmux, en tu máquina, repo git local | Sin GitHub, o cuando la copia no debe salir de la máquina |
 
+**Auditor recomendado: Opus 5.5 en esfuerzo `max` con `/advisor fable`.** `prepare_copy.sh` lo deja fijado en `.claude/settings.json` de la copia (`model`, `advisorModel` y `env.CLAUDE_CODE_EFFORT_LEVEL=max`, porque `max` solo persiste por esa variable); cámbialo con `DH_MODEL`, `DH_EFFORT`, `DH_ADVISOR`.
+
 Mismas garantías en los dos: copia limpia, escaneo de PII = 0, `/advisor <modelo>` activo antes del prompt, mismo brief, mismo entregable.
 
 ## Anexo local

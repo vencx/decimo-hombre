@@ -71,7 +71,7 @@ No es para cambios pequeños y reversibles, cazar bugs ni código ya escrito (pa
 ## Cómo funciona
 1. Copia solo el documento (más un brief escrito desde una plantilla: requisitos · técnico · diseño de agente) a una carpeta limpia con su propio git.
 2. Lo escanea en busca de teléfonos, correos, IDs de chat y cadenas con pinta de clave, más tus propias regex. Si encuentra algo, se detiene.
-3. Arranca una sesión de Claude aparte, pone primero `/advisor` (Fable por defecto) y luego manda el prompt.
+3. Arranca una sesión de Claude aparte con el auditor recomendado fijado en la configuración de la copia: **Opus 5.5 en esfuerzo máximo, asesorado por Fable**. Luego manda el prompt.
 4. Espera el artefacto (el commit), nunca el silencio.
 5. Trae `revision.md` junto a tu plan.
 

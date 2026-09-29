@@ -30,7 +30,7 @@ Mismas garantías en los dos: copia limpia, escaneo de PII = 0, `/advisor <model
 Si existe `~/.claude/docs/decimo-hombre-anexo.md`, léelo antes del paso 1: trae las reglas y rutas propias de quien usa la skill (a dónde se copia la revisión, a quién se avisa, regex extra de PII). El anexo manda sobre los valores por defecto de aquí.
 
 ## Requisito de una vez (modo nube)
-Para que la nube suba la rama sola, el repo tiene que llegar CLONADO (GitHub App de Claude instalada en él). Si llega como copia empaquetada, el push da 403 y la revisión se lee en la sesión (ver «Si algo falla»). El paso 5 lo detecta: sin rama a los 30 min, lee la sesión. Sin esto, la revisión se hace pero se queda en la sesión.
+Para que la nube suba la rama sola, el repo tiene que ser **fuente de la sesión**, y eso solo se elige al CREARLA desde la web: claude.ai/code → «Select repository…» → `owner/dh-<slug>` → pega el prompt del paso 4 (el `/advisor` va antes, como slash command). `claude --cloud` desde la terminal sube la carpeta sin registrarla como fuente, y a una sesión ya creada no se le puede añadir: esas sesiones revisan bien, pero el push da 403. Si tienes Claude in Chrome conectado, tu sesión local puede crear la sesión web por ti. El paso 5 detecta el caso: sin rama a los 30 min, lee la sesión.
 
 ## Procedimiento
 1. **Elige qué va en la copia.** Solo el documento a revisar (y, si hace falta, 1–2 anexos que el documento cite como autoridad). Nada de volcados, logs ni conversaciones: el auditor no los necesita y ahí vive la PII.
@@ -48,7 +48,7 @@ Para que la nube suba la rama sola, el repo tiene que llegar CLONADO (GitHub App
 ## Si algo falla
 - Nube sin sesión o con error: repite el paso 4 una vez; si vuelve a fallar, ofrece el modo `local` con la misma carpeta (ya es un repo git).
 - La sesión en la nube no arranca tras el paso 4: vuelve a mandar el prompt con `claude -p "<prompt>" --cloud <session_id>` desde la carpeta. No uses mensajes entre sesiones (SendMessage): llegan como texto y no la ponen a trabajar.
-- El push de la nube falla con 403 («not in this session's authorized repository set»): la sesión recibió el repo como copia empaquetada y el proxy solo empuja a repos que son fuente de la sesión. La revisión SÍ está hecha: léela en la URL de la sesión o tráela con `claude --teleport <session_id>` desde la carpeta de la copia, y guárdala tú junto al plan. Medido 26-sep: `/web-setup` y la GitHub App en «All repositories» no lo evitaron en esa cuenta; el auditor no debe esquivar el 403 con otros tokens.
+- El push de la nube falla con 403 («not in this session's authorized repository set… add the repository to the session's sources»): la sesión se creó sin el repo como fuente (típico de `claude --cloud`). La revisión SÍ está hecha: tráela con `claude -p "copia textual el contenido final de revision.md" --teleport <session_id>` desde la carpeta de la copia y guárdala junto al plan. Para la próxima, crea la sesión en la web eligiendo el repo (medido 28-sep-2026: una sesión así empujó su rama sin error). El auditor no debe esquivar el 403 con otros tokens.
 - 90 min sin entrega: abre la URL o `tmux attach -t dh-…` y mira qué pasó; di al usuario lo que ves, no lo que supones.
 
 ## Qué no hace

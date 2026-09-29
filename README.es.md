@@ -85,7 +85,7 @@ No es para cambios pequeños y reversibles, cazar bugs ni código ya escrito (pa
 ¿Tienes créditos de la nube y no sabes en qué gastarlos? Aquí rinden. En nuestras corridas, cada revisión pequeña costó más o menos USD 2–3 de crédito (estimación nuestra, por el saldo antes y después).
 
 ## Límites, con honestidad
-- En algunas configuraciones `claude --cloud` sube el repo como copia empaquetada: la revisión se hace, pero el push de vuelta da 403. La revisión sigue ahí: léela en la sesión o tráela con `claude --teleport <id>`. Al auditor se le pide no esquivar nunca un 403.
+- Una sesión lanzada con `claude --cloud` no registra el repo como fuente de la sesión: la revisión se hace, pero el push de vuelta da 403. Arreglo: crea la sesión en claude.ai/code eligiendo el repo en «Select repository…» (medido: así empuja sin problema). ¿Ya te pasó? Trae la revisión con `claude -p "…" --teleport <id>`. Al auditor se le pide no esquivar nunca un 403.
 - Revisa documentos, no diffs de código.
 - Una revisión por documento: requisitos y plan técnico son dos revisiones.
 

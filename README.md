@@ -85,7 +85,7 @@ Not for small reversible changes, bug hunts, or code already written (use a code
 Got cloud credits you do not know what to do with? This spends them on something useful. In our runs each small review cost roughly $2–3 of credit (our estimate, from the balance before and after).
 
 ## Honest limitations
-- In some setups `claude --cloud` uploads the repo as a bundle; the review completes but the push back gets a 403. The review is still there: read it in the session or pull it with `claude --teleport <id>`. The auditor is told never to work around a 403.
+- A session started with `claude --cloud` doesn't register the repo as a session source, so the review completes but the push back gets a 403. Fix: create the session on claude.ai/code picking the repo in "Select repository…" (measured: that pushes fine). Already hit it? Pull the review with `claude -p "…" --teleport <id>`. The auditor is told never to work around a 403.
 - It reviews documents, not code diffs.
 - One review per document: requirements and technical plan are two reviews.
 

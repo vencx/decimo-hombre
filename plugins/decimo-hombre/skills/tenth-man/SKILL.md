@@ -30,7 +30,7 @@ Same guarantees in both: clean copy, PII scan = 0, `/advisor <model>` set before
 If `~/.claude/docs/tenth-man-annex.md` exists, read it before step 1: it holds the user's own rules and paths (where the review goes, who gets notified, extra PII regexes). The annex overrides the defaults here.
 
 ## One-time requirement (cloud mode)
-For the cloud to push the branch on its own, the repo must arrive CLONED (Claude GitHub App installed on it). If it arrives as a bundle, the push gets a 403 and the review is read in the session (see "When something fails"). Step 5 catches it: no branch after 30 min, read the session. Without it the review still happens but stays inside the session.
+For the cloud to push the branch on its own, the repo must be a **source of the session**, and that can only be chosen when the session is CREATED on the web: claude.ai/code → "Select repository…" → `owner/dh-<slug>` → paste the step 4 prompt (the `/advisor` goes first, as a slash command). `claude --cloud` from the terminal uploads the folder without registering it as a source, and an existing session cannot add one: those sessions review fine, but the push gets a 403. With Claude in Chrome connected, your local session can create the web session for you. Step 5 catches it: no branch after 30 min, read the session.
 
 ## Procedure
 1. **Pick what goes in the copy.** Only the document under review (plus 1–2 annexes the document cites as authority). No dumps, logs or conversations: the auditor does not need them and that is where personal data lives.
@@ -48,7 +48,7 @@ For the cloud to push the branch on its own, the repo must arrive CLONED (Claude
 ## When something fails
 - Cloud: no session or an error: repeat step 4 once; if it fails again, offer `local` mode on the same folder (it is already a git repo).
 - The cloud session does not start after step 4: resend the prompt with `claude -p "<prompt>" --cloud <session_id>` from the folder. Do not use cross-session messages (SendMessage): they arrive as text and do not start the work.
-- The cloud push fails with a 403 ("not in this session's authorized repository set"): the session got the repo as a bundle and the proxy only pushes to repos that are session sources. The review IS done: read it at the session URL or pull it with `claude --teleport <session_id>` from the copy's folder, and save it next to the plan yourself. The auditor must not work around the 403 with other tokens.
+- The cloud push fails with a 403 ("not in this session's authorized repository set… add the repository to the session's sources"): the session was created without the repo as a source (typical of `claude --cloud`). The review IS done: pull it with `claude -p "copy verbatim the final content of revision.md" --teleport <session_id>` from the copy's folder and save it next to the plan. Next time, create the session on the web picking the repo (measured 2026-09-28: a session created that way pushed its branch with no error). The auditor must not work around the 403 with other tokens.
 - 90 min without delivery: open the URL or `tmux attach -t dh-…` and look; tell the user what you see, not what you assume.
 
 ## What it does not do
